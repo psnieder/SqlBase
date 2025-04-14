@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace SQL
+namespace BaseClasses
 {
-    public abstract class Base
+    public abstract class SqlBase
     {
         #region Properties
         private SqlConnection Con { get; }
@@ -13,7 +13,7 @@ namespace SQL
         #endregion
 
         #region Constructors
-        protected Base()
+        protected SqlBase()
         {
             Con = new SqlConnection();
             Rollback = false;
@@ -21,7 +21,7 @@ namespace SQL
             Command.Connection = Con;
         }
 
-        protected Base(string connectionString)
+        protected SqlBase(string connectionString)
         {
             Con = new SqlConnection(connectionString);
             Rollback = false;
