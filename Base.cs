@@ -30,10 +30,6 @@ namespace SQL
         }
         #endregion
 
-        #region Getters
-        protected SqlTransaction GetTransaction() => Transaction;
-        #endregion
-
         #region Methods 
         public void ClearParameters()
         {
