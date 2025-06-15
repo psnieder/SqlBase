@@ -17,16 +17,14 @@ namespace BaseClasses
         {
             Con = new SqlConnection();
             Rollback = false;
-            Command = new SqlCommand();
-            Command.Connection = Con;
+            Command = Con.CreateCommand();
         }
 
         protected SqlBase(string connectionString)
         {
             Con = new SqlConnection(connectionString);
             Rollback = false;
-            Command = new SqlCommand();
-            Command.Connection = Con;
+            Command = Con.CreateCommand();
         }
         #endregion
 
@@ -47,10 +45,7 @@ namespace BaseClasses
 
         public bool CommitTransaction()
         {
-            if (Transaction is null)
-            {
-                throw new Exception("Cannot commit without an open transaction");
-            }
+            if (Transaction is null) throw new Exception("Cannot commit without an open transaction");
 
             /* Commit transaction */
             try
@@ -71,15 +66,9 @@ namespace BaseClasses
 
         public void RollbackTransaction()
         {
-            if (Transaction is null)
-            {
-                throw new Exception("Cannot rollback without an open transaction");
-            }
+            if (Transaction is null) throw new Exception("Cannot rollback without an open transaction");
 
-            if (!Rollback)
-            {
-                throw new Exception("Cannot rollback a transaction that was not attempted to be committed");
-            }
+            if (!Rollback) throw new Exception("Cannot rollback a transaction that was not attempted to be committed");
 
             /* Rollback transaction */
             try
